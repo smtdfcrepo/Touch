@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_height="match_parent"
+    android:layout_width="match_parent"
+    android:orientation="vertical"
+>
+        
+<ProgressBar
+            android:layout_height="wrap_content"
+            android:layout_width="match_parent"
+            style="?android:attr/progressBarStyleHorizontal"
+            android:background="#0000FF00"/>
+        
+<TextView
+            android:layout_height="wrap_content"
+            android:layout_width="wrap_content"
+            android:text="Touch Client App"
+            android:textSize="50sp"/>
+        
+<TextView
+            android:layout_height="wrap_content"
+            android:layout_width="wrap_content"
+            android:text="Connect server"
+            android:textSize="25sp"
+            android:textStyle="italic"
+            android:padding="20dp"/>
+        
+<EditText
+            android:layout_height="wrap_content"
+            android:layout_width="match_parent"
+            android:padding="16dp"
+            android:layout_margin="16dp"
+            android:text="Server IP"/>
+        
+<Button
+            android:layout_height="wrap_content"
+            android:layout_width="match_parent"
+            android:text="Connect"
+            android:layout_margin="16dp"/>
+
+</LinearLayout>
