@@ -11,6 +11,9 @@ const httpServer = new http.createServer(app)
 // set database 
 auth.Database(db.AccountDB)
 
+module.exports.start = function(){
 httpServer.listen(2000,()=>{
   console.log("Server is running !");
 })
+
+}
