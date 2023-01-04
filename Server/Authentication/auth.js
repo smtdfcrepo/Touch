@@ -17,6 +17,7 @@ module.exports.login = function(id, password) {
             message:"Cannot find account !"
           })
         } else {
+          row[0].password = "******************"
           resolve({
             id: id,
             info: row[0]
