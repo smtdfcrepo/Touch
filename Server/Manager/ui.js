@@ -20,7 +20,7 @@ module.exports.all = function(owner) {
 
 module.exports.getData = function(owner, name) {
   return new Promise((resolve, reject) => {
-    let UIDB = db.loadDatabase("ui/ui.db")
+    let UIDB = db.loadDatabase(`ui/ui_${name}_${owner}.db`)
     UIDB.all(`SELECT * FROM  ui_${name}_${owner}`, function(err, row) {
       if (err) {
         reject({
@@ -58,7 +58,7 @@ module.exports.getSource = function(owner, name) {
 module.exports.create = function(owner, name, source) {
   return new Promise((resolve, reject) => {
     let ListUIDB = db.loadDatabase("ui/list.db")
-    let UIDB = db.loadDatabase("ui/ui.db")
+    let UIDB = db.loadDatabase(`ui/ui_${name}_${owner}.db`)
     UIDB.run(`CREATE TABLE ui_${name}_${owner}('widget' TEXT,'name' TEXT,'value' TEXT, 'attr' TEXT)`, function(err) {
       if (err) {
         reject({
