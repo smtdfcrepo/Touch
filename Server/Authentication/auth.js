@@ -19,7 +19,6 @@ module.exports.login = function(id, password) {
         } else {
           resolve({
             id: id,
-            password: password,
             info: row[0]
           })
         }
