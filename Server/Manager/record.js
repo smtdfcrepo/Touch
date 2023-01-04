@@ -2,7 +2,7 @@ const db = require("./db.js")
 
 module.exports.all = function(owner) {
   return new Promise((resolve, reject) => {
-    let ListRecordDB = db.loadDatabase("Records/list.db")
+    let ListRecordDB = db.loadDatabase(`Records/records_${owner}_${name}.db`)
     ListRecordDB.all(`SELECT * FROM list_record WHERE owner ='${owner}'`, function(err, row) {
       if (err) {
         reject({
@@ -20,7 +20,7 @@ module.exports.all = function(owner) {
 
 module.exports.getData = function(owner, name) {
   return new Promise((resolve, reject) => {
-    let ListRecordDB = db.loadDatabase("Records/records.db")
+    let ListRecordDB = db.loadDatabase(`Records/records_${owner}_${name}.db`)
     ListRecordDB.all(`SELECT * FROM  record_${name}_${owner}`, function(err, row) {
       if (err) {
         reject({
@@ -38,7 +38,7 @@ module.exports.getData = function(owner, name) {
 
 module.exports.getField = function(owner, name, field) {
   return new Promise((resolve, reject) => {
-    let ListRecordDB = db.loadDatabase("Records/records.db")
+    let ListRecordDB = db.loadDatabase(`Records/records_${owner}_${name}.db`)
     ListRecordDB.all(`SELECT * FROM  record_${name}_${owner} WHERE fields ='${field}' `, function(err, row) {
       if (err) {
         reject({
@@ -56,7 +56,7 @@ module.exports.getField = function(owner, name, field) {
 
 module.exports.setField = function(owner, name, field, val, time,method = "overwrite") {
   return new Promise((resolve, reject) => {
-    let ListRecordDB = db.loadDatabase("Records/records.db")
+    let ListRecordDB = db.loadDatabase(`Records/records_${owner}_${name}.db`)
     if (method == "overwrite") {
       ListRecordDB.run(`DELETE FROM record_${name}_${owner} WHERE fields='${field}' `, function(err) {
         if (err) {
@@ -95,7 +95,7 @@ module.exports.setField = function(owner, name, field, val, time,method = "overw
 
 module.exports.delField = function(owner, name, field) {
   return new Promise((resolve, reject) => {
-    let ListRecordDB = db.loadDatabase("Records/records.db")
+    let ListRecordDB = db.loadDatabase(`Records/records_${owner}_${name}.db`)
     ListRecordDB.run(`DELETE FROM record_${name}_${owner} WHERE fields ='${field}'  `, function(err) {
       if (err) {
         ListRecordDB.close()
@@ -114,7 +114,7 @@ module.exports.delField = function(owner, name, field) {
 module.exports.create = function(owner, name) {
   return new Promise((resolve, reject) => {
     let ListRecordDB = db.loadDatabase("Records/list.db")
-    let RecordDB = db.loadDatabase("Records/records.db")
+    let RecordDB = db.loadDatabase(`Records/records_${owner}_${name}.db`)
     RecordDB.run(`CREATE TABLE record_${name}_${owner}('fields' TEXT,'value' TEXT,'time_update' TEXT)`, function(err) {
       if (err) {
         ListRecordDB.close()
@@ -149,7 +149,7 @@ module.exports.create = function(owner, name) {
 module.exports.delete = function(owner, name) {
   return new Promise((resolve, reject) => {
     let ListRecordDB = db.loadDatabase("Records/list.db")
-    let RecordDB = db.loadDatabase("Records/records.db")
+    let RecordDB = db.loadDatabase(`Records/records_${owner}_${name}.db`)
     ListRecordDB.run(`DELETE FROM list_record WHERE owner='${owner}' AND name='${name}'`, function(err) {
       if (err) {
         ListRecordDB.close()
