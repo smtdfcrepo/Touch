@@ -2,7 +2,7 @@ const db = require("./db.js")
 
 module.exports.all = function(owner) {
   return new Promise((resolve, reject) => {
-    let ListRecordDB = db.loadDatabase(`Records/records_${owner}_${name}.db`)
+    let ListRecordDB = db.loadDatabase(`Records/list.db`)
     ListRecordDB.all(`SELECT * FROM list_record WHERE owner ='${owner}'`, function(err, row) {
       if (err) {
         reject({
