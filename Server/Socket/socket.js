@@ -54,7 +54,7 @@ module.exports.initSocket = function(httpServer, sys_event) {
         let time = Date.now()
         recordManager.setField(socket.auth.id,name,field,value,time)
           .then((result)=>{
-            sys_event.on("set_record",socket.auth.id,name,field,value,time)
+            sys_event.emit("set_record",socket.auth.id,name,field,value,time)
           })
           .catch(err=>{
             socket.emit("set_field_err",{
