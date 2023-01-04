@@ -9,8 +9,6 @@ module.exports.initSocket = function(httpServer, sys_event) {
     }
   })
 
-
-
   socketServer.on("connection", function(socket) {
     socket.auth = null
     socket.emit("require_auth")

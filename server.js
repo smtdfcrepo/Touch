@@ -17,10 +17,8 @@ app.use(function(req, res, next) {
   next()
 })
 
-app.use("/static", express.static(path.join(__dirname, "Server/Public")))
-app.post("/test",(req,res)=>{
-  res.send(req.body)
-})
+app.use("/dashboard", express.static(path.join(__dirname, "./Client/Dashboard")))
+
 router.initRouters(app,{ 
   "/rest":{
     sys_event:sys_event
