@@ -14,7 +14,7 @@ module.exports.login = function(id, password) {
         if (row.length == 0) {
           reject({
             status: "error",
-            message:"Cannot find account !"
+            message:"Incorrect ID or password !"
           })
         } else {
           row[0].password = "******************"
