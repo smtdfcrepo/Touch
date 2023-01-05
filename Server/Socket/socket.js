@@ -83,5 +83,4 @@ module.exports.initSocket = function(httpServer, sys_event) {
       }
     })
   })
-
 }
