@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Touch | Dashboard </title>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+  <link rel="stylesheet" href="https://smtdfcrepo.github.io/cdn/snail/main.css">
+</head>
+
+<body>
+
+  <div class="navbar" style="background: gray;">
+    <div class="navbar-head">
+      <div class="navbar-btn">
+        <i data-action="control-offcanvas" data-mode="auto" data-offcanvas="#menu" class="fa fa-bars"></i>
+      </div>
+      <h3 class="navbar-logo">Touch</h3>
+      <img src="../../Assets/Images/Icons/account.png" alt="account" data-action="control-offcanvas" data-mode="auto" data-offcanvas="#account-menu" class="navbar-avatar">
+    </div>
+  </div>
+  <div class="offcanvas" id="menu">
+    <div class="offcanvas-header">
+      <h3 class="offcanvas-title">User Dashboard</h3>
+      <button class="offcanvas-btn" data-action="control-offcanvas" data-mode="auto" data-offcanvas="#menu">X</button>
+    </div>
+    <div class="offcanvas-body">
+      <ul class="offcanvas-nav">
+        <li>
+          <a href="./index.html">
+            <h3 class="mb-0 mt-0"><i class="fa fa-home"></i> Home </h3>
+          </a>
+        </li>
+        <li>
+          <a href="./record.html">
+            <h3 class="mb-0 mt-0"><i class="fa fa-table"></i> Data Record </h3>
+          </a>
+        </li>
+        <li>
+          <a href="#">
+            <h3 class="mb-0 mt-0" data-action="control-offcanvas" data-mode="auto" data-offcanvas="#account-menu"><i class="fa fa-user"></i> Account </h3>
+          </a>
+        </li>
+      </ul>
+    </div>
+  </div>
+  <div class="offcanvas" id="account-menu">
+    <div class="offcanvas-header">
+      <h3 class="offcanvas-title">Account</h3>
+      <button class="offcanvas-btn" data-action="control-offcanvas" data-mode="auto" data-offcanvas="#account-menu">X</button>
+    </div>
+    <div class="offcanvas-body">
+      <div class="row mt-2 ml-3">
+        <div class="col-1">
+          <img style="width: 50px; height: 50px;" src="../../Assets/Images/Icons/account.png" alt="account" data-action="control-offcanvas" data-mode="auto" data-offcanvas="#account-menu" class="ml-2">
+        </div>
+        <div class="col-99 ml-2 mt-5 mb-5">
+          <span class="text-container" id="user-id-display">loading....</span>
+        </div>
+      </div>
+      <hr>
+
+      <ul class="offcanvas-nav">
+        <li>
+          <a href="./account_setting.html">
+            <h3 class="mb-0 mt-0"><i class="fa fa-cog"></i> Settings </h3>
+          </a>
+        </li>
+        <li>
+          <a href="../../logout.html">
+            <h3 class="mb-0 mt-0"><i class="fa fa-sign-out"></i> Logout </h3>
+          </a>
+        </li>
+      </ul>
+    </div>
+  </div>
+  <br><br><br><br>
+  <div class="main mt-3">
+
+  </div>
+  <script src="https://cdn.socket.io/4.5.4/socket.io.min.js" integrity="sha384-/KNQL8Nu5gCHLqwqfQjA689Hhoqgi2S84SNUxC3roTe4EhJ9AfLkp8QiQcU8AMzI" crossorigin="anonymous"></script>
+  <script src="https://smtdfcrepo.github.io/cdn/snail/snail.js"></script>
+  <script src="../../Assets/Scripts/API/touch.client.js"></script>
+  <script src="../../Assets/Scripts/Pages/User/index.js"></script>
+</body>
+
+</html>

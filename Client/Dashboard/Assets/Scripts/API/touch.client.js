@@ -1,4 +1,4 @@
-let origin = window.location.origin
+let origin = "https://heady-fir-plum.glitch.me/" //window.location.origin
 
 function setCookie(name, value, days) {
   var expires = "";
@@ -86,6 +86,25 @@ class Authentication {
     if (res.status == "success") {
 
 
+      return res.info
+    } else {
+      throw res.message
+    }
+  }
+  static async logout() {
+    let res = await fetch(origin + "rest/auth/logout", {
+      method: "post",
+      headers: {
+        Accept: "*",
+        "Content-Type": "application/json",
+        "authorization": `Bear ${atob(getCookie("at"))}`
+      },
+      body: JSON.stringify({})
+    })
+    res = await res.json()
+    if (res.status == "success") {
+  
+  
       return res.info
     } else {
       throw res.message
@@ -262,8 +281,10 @@ class UI {
 //UI.create("r")
 //UI.layout("r")
 //UI.all()
-let sv = io(origin)
-
+let sv = null
+function initSocket(){
+ sv = io(origin)
+}
 function connectSocketSv() {
   return new Promise((resolve, reject) => {
     sv.on("require_auth", function() {
