@@ -17,3 +17,7 @@ async function login(username, password) {
 		return result
 	}
 }
+
+module.exports ={
+	login
+}
