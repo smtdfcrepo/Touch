@@ -3,6 +3,17 @@ const fastify = require('fastify')({
 	logger: true
 })
 
+fastify.addHook('onRequest', function(request, reply, done) {
+	console.log("Request ")
+	done();
+})
+
+fastify.addHook('preHandler', (req, repy, done) => {
+  reply.header("Access-Control-Allow-Origin", "*")
+  reply.header("Access-Control-Allow-Headers","Origin, X-Requested-With, Content-Type, Accept" );
+  done()
+})
+
 
 fastify.register(require("./Router/auth.route.js"))
 fastify.get('/info', function(request, reply) {
@@ -10,7 +21,6 @@ fastify.get('/info', function(request, reply) {
 		version: '0.0.1'
 	})
 })
-
 
 fastify.listen({ port: 3000, host: '0.0.0.0' }, function(err, address) {
 	if (err) {
