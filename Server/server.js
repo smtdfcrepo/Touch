@@ -3,10 +3,7 @@ const fastify = require('fastify')({
 	logger: true
 })
 
-fastify.addHook('onRequest', function(request, reply, done) {
-	console.log("Request ")
-	done();
-})
+fastify.addHook('onRequest', require("./Middlewares/auth.middleware.js"))
 
 fastify.addHook('preHandler', (req, repy, done) => {
   reply.header("Access-Control-Allow-Origin", "*")
