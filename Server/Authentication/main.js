@@ -1,7 +1,8 @@
 const AccountModel = require("../Models/account.model.js")
 
 async function login(username, password) {
-	let result = AccountModel.findOnce({
+	let result = AccountModel.findOne({
+		attributes:["username","rule"],
 		where: {
 			username: username,
 			password: password
