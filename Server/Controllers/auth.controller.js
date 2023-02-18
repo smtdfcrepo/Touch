@@ -10,6 +10,15 @@ class AuthController {
 				name:"FieldError",
 				message:"Missing Field !"
 			})
+		}else{
+			try {
+				let info = await auth.login(username,password)
+				reply.send({
+					info:info
+				})
+			} catch (err) {
+				reply.send({...err})
+			}
 		}
 	}
 }
