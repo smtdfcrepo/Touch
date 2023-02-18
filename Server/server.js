@@ -5,7 +5,7 @@ const fastify = require('fastify')({
 
 fastify.addHook('onRequest', require("./Middlewares/auth.middleware.js"))
 
-fastify.addHook('preHandler', (req, repy, done) => {
+fastify.addHook('preHandler', (req, reply, done) => {
   reply.header("Access-Control-Allow-Origin", "*")
   reply.header("Access-Control-Allow-Headers","Origin, X-Requested-With, Content-Type, Accept" );
   done()
