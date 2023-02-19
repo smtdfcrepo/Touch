@@ -16,32 +16,26 @@ async function verifyToken(token, secret){
 }
 
 
-module.exports = async function(req, reply, done) {
+module.exports = async function(req, reply) {
 	req.user = null
 	let authorization = req.headers.authorization
 	if (!authorization) {
-		done()
+		return 
 	} else {
 		
 		let token = authorization.split(" ")[1]
 		if (!token) {
-			done()
+		return
 		} else {
-			verifyToken(token,process.env.ACCESS_TOKEN_SECRET)
-				.then((payload)=>{
-					req.user = payload
-					done()
+			try {
+				let payload = jwt.verify(token, secret)
+				return payload
+			} catch (err) {
+				reply.send({
+					name: "TokenError",
+					message: "Incorrect token !"
 				})
-				
-				.catch((err)=>{
-					reply.send({
-						status:"error",
-						error:{
-							name:"TokenError",
-							message:"Invalid Token !"
-						}
-					})
-				})
+			}
 		}
 	}
 }
