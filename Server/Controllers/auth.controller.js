@@ -23,8 +23,8 @@ class AuthController {
 					results: {
 						info: info,
 						tokens: {
-							accessToken:at,
-							refreshToken:rt
+							accessToken: at,
+							refreshToken: rt
 						}
 					}
 				})
@@ -37,6 +37,58 @@ class AuthController {
 		}
 	}
 
+	static info(request, reply) {
+		reply.send({
+			status: "success",
+			results: {
+				info: request.user
+			}
+		})
+	}
+
+	static async token(request, reply) {
+		let body = JSON.parse(request.body)
+		let at = body.accessToken
+		let rt = body.refreshToken
+
+		let payload = await token.checkIntoDBandVerifyToken(rt)
+		try {
+			reply.send({
+				status: "success",
+				results: {
+					tokens: {
+						accessToken: at,
+						refreshToken: rt
+					}
+				}
+			})
+		} catch (err) {
+			reply.send({
+				status: "error",
+				error: err
+			});
+		}
+	}
+	
+	static async logout(request, reply){
+		let body = JSON.parse(request.body)
+		let rt = body.refreshToken
+		let payload = await token.deleteToken(rt)
+		try {
+			reply.send({
+				status: "success",
+				results: {
+					logged_out:true,
+					time:new Date().toISOString()
+				}
+			})
+		} catch (err) {
+			reply.send({
+				status: "error",
+				error: err
+			});
+		}
+	}
 }
 
 module.exports = AuthController
