@@ -3,33 +3,22 @@ const dotenv = require('dotenv')
 
 dotenv.config()
 
-async function verifyToken(token, secret){
-	try {
-		let payload = jwt.verify(token,secret)
-		return payload
-	} catch (err) {
-		throw{
-			name:"VerifyTokenError",
-			message:"Cannot verify token !"
-		}
-	}
-}
 
-
-module.exports = async function(req, reply) {
+module.exports = async function(req, res,next) {
 	req.user = null
 	let authorization = req.headers.authorization
 	if (!authorization) {
-		return 
+		next()
 	} else {
 		
 		let token = authorization.split(" ")[1]
 		if (!token) {
-		return
+			next()
 		} else {
 			try {
-				let payload = jwt.verify(token, secret)
-				return payload
+				let payload = await jwt.verify(token, secret)
+				req.user = payload
+				next()
 			} catch (err) {
 				reply.send({
 					name: "TokenError",

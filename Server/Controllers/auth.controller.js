@@ -4,12 +4,11 @@ const token = require("../Authentication/token.js")
 
 dotenv.config()
 class AuthController {
-	static async login(request, reply) {
-		let body = JSON.parse(request.body)
-		let username = body.username
-		let password = body.password
+	static async login(req, res) {
+		let username = req.body.username
+		let password = req.body.password
 		if (!password || !username) {
-			reply.send({
+			res.send({
 				name: "FieldError",
 				message: "Missing Field !"
 			})
@@ -18,7 +17,7 @@ class AuthController {
 				let info = await auth.login(username, password)
 				let at = await token.generateToken(info, process.env.ACCESS_TOKEN_SECRET)
 				let rt = await token.generateAndSaveToken(info, process.env.REFRESH_TOKEN_SECRET)
-				reply.send({
+				res.send({
 					status: "success",
 					results: {
 						info: info,
@@ -29,7 +28,7 @@ class AuthController {
 					}
 				})
 			} catch (err) {
-				reply.send({
+				res.send({
 					status: "error",
 					error: err
 				})
@@ -37,23 +36,23 @@ class AuthController {
 		}
 	}
 
-	static info(request, reply) {
-		reply.send({
+	static info(req, res) {
+		res.send({
 			status: "success",
 			results: {
-				info: request.user
+				info: req.user
 			}
 		})
 	}
 
-	static async token(request, reply) {
-		let body = JSON.parse(request.body)
-		let at = body.accessToken
-		let rt = body.refreshToken
+	static async token(req, res) {
+		
+		let at = req.body.accessToken
+		let rt = req.body.refreshToken
 
 		let payload = await token.checkIntoDBandVerifyToken(rt)
 		try {
-			reply.send({
+			res.send({
 				status: "success",
 				results: {
 					tokens: {
@@ -63,19 +62,19 @@ class AuthController {
 				}
 			})
 		} catch (err) {
-			reply.send({
+			res.send({
 				status: "error",
 				error: err
 			});
 		}
 	}
 	
-	static async logout(request, reply){
-		let body = JSON.parse(request.body)
-		let rt = body.refreshToken
+	static async logout(req, res){
+		
+		let rt = req.body.refreshToken
 		let payload = await token.deleteToken(rt)
 		try {
-			reply.send({
+			res.send({
 				status: "success",
 				results: {
 					logged_out:true,
@@ -83,7 +82,7 @@ class AuthController {
 				}
 			})
 		} catch (err) {
-			reply.send({
+			res.send({
 				status: "error",
 				error: err
 			});
