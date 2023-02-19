@@ -1,16 +1,13 @@
 const http = require('http');
 const fastify = require('fastify')({
-	logger: true
+	logger: false
 })
 
 fastify.addHook('onRequest', require("./Middlewares/auth.middleware.js"))
-
-fastify.addHook('preHandler', (req, reply, done) => {
-  reply.header("Access-Control-Allow-Origin", "*")
-  reply.header("Access-Control-Allow-Headers","Origin, X-Requested-With, Content-Type, Accept" );
-  done()
+fastify.register(require('@fastify/cors'), {
+  origin:'*',
+  methods:['POST',"GET" ],
 })
-
 
 fastify.register(require("./Router/auth.route.js"))
 fastify.get('/info', function(request, reply) {

@@ -16,7 +16,7 @@ async function verifyToken(token, secret){
 }
 
 
-module.exports = function(req, reply, done) {
+module.exports = async function(req, reply, done) {
 	req.user = null
 	let authorization = req.headers.authorization
 	if (!authorization) {

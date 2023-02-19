@@ -63,4 +63,23 @@ class TouchAuthentication{
 			}
 		}
 	}
+	static async info(username, password) {
+		let response = await fetch(`${server}/auth/info`, {
+			method: "post",
+			
+			headers:{
+				"authorization":"Bear "+atob(Cookie.getCookie("at"))
+			}
+		})
+		let json = await response.json()
+		if (json.status == "success") {
+			return json.results
+		} else {
+			if (isTokenError(json)) {
+				await this.info()
+			} else {
+				throw json
+			}
+		}
+	}
 }
