@@ -22,7 +22,7 @@ class AuthController {
 					status: "success",
 					results: {
 						info: info,
-						token: {
+						tokens: {
 							accessToken:at,
 							refreshToken:rt
 						}
