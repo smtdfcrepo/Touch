@@ -14,7 +14,7 @@ async function login(username, password) {
 			message:"Incorrect username or password !"
 		}
 	}else{
-		return result
+		return result.dataValues
 	}
 }
 
