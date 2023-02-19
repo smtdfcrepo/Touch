@@ -1,7 +1,7 @@
 const AccountModel = require("../Models/account.model.js")
 
 async function login(username, password) {
-	let result = AccountModel.findOne({
+	let result = await AccountModel.findOne({
 		attributes:["username","rule"],
 		where: {
 			username: username,
@@ -14,7 +14,6 @@ async function login(username, password) {
 			message:"Incorrect username or password !"
 		}
 	}else{
-		result.password = "****"
 		return result
 	}
 }
