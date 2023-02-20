@@ -1,12 +1,12 @@
 let server = null
-const TOKEN_ERR =[
+const TOKEN_ERR = [
 	"VerifyTokenError",
 	"FindTokenError",
 	"TokenError",
-	
+
 ]
 
-function isTokenError(err){
+function isTokenError(err) {
 	if (TOKEN_ERR.includes(err.name)) {
 		return true
 	}
@@ -39,44 +39,49 @@ class Cookie {
 }
 
 
-class TouchAuthentication{
-	static async login(username, password){
-		let response = await fetch(`${server}/auth/login`,{
-			method:"post",
-			body:JSON.stringify({
-				username:username,
-				password:password
+class TouchAuthentication {
+	static async login(username, password, retry = false) {
+		let response = await fetch(`${server}/auth/login`, {
+			method: "post",
+			body: JSON.stringify({
+				username: username,
+				password: password
 			})
 		})
+
 		let json = await response.json()
 		if (json.status == "success") {
 			let at = json.results.tokens.accessToken
 			let rt = json.results.tokens.refreshToken
-			Cookie.setCookie("at",btoa(at))
-			Cookie.setCookie("rt",btoa(rt))
+			Cookie.setCookie("at", btoa(at))
+			Cookie.setCookie("rt", btoa(rt))
 			return json.results
-		}else{
-			if (isTokenError(json)){
-				await this.login(username,password)
-			}else{
-				throw json
-			}
+		} else {
+			throw json.error
+		}
+
+		if (isTokenError(json) && !retry) {
+			await this.login(username,password,true)
+		} else {
+			throw json
 		}
 	}
-	static async info(username, password) {
+
+	static async info(retry=false) {
 		let response = await fetch(`${server}/auth/info`, {
 			method: "post",
-			
-			headers:{
-				"authorization":"Bear "+atob(Cookie.getCookie("at"))
+
+			headers: {
+				"authorization": "Bear 4 " + atob(Cookie.getCookie("at"))
 			}
 		})
 		let json = await response.json()
 		if (json.status == "success") {
 			return json.results
 		} else {
-			if (isTokenError(json)) {
-				await this.info()
+
+			if (isTokenError(json) && !retry) {
+				await this.info(true)
 			} else {
 				throw json
 			}
