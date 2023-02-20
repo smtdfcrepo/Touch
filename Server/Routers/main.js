@@ -8,4 +8,4 @@ router.get("/info",async ctx=>{
 		}
 	})
 
-module.exports = router 
+module.exports = router.routes() 

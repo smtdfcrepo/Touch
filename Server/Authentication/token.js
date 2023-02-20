@@ -12,7 +12,7 @@ async function verifyToken(token, secret) {
 		return payload
 	} catch (err) {
 		throw {
-			name: "VerifyTokenError",
+			name: "AuthenticationError",
 			message: "Cannot verify token !"
 		}
 	}
@@ -34,7 +34,7 @@ async function findTokenInDB(token) {
 	})
 	if (result == null) {
 		throw {
-			name: "FindTokenError",
+			name: "AuthenticationError",
 			message: "Incorrect token !"
 		}
 	} else {
@@ -48,7 +48,7 @@ async function checkIntoDBandVerifyToken(token, secret) {
 		return await verifyToken(token, secret)
 	} else {
 		throw {
-			name: "FindTokenError",
+			name: "AuthenticationError",
 			message: "Incorrect token !"
 		}
 	}
@@ -69,7 +69,7 @@ async function deleteToken(token) {
 	})
 	if (result == null) {
 		throw {
-			name: "FindTokenError",
+			name: "AuthenticationError",
 			message: "Incorrect token !"
 		}
 	} else {
