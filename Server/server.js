@@ -14,6 +14,6 @@ app.use(async (ctx, next) => {
 });
 
 app.use(bodyParser());
-app.use(router(app))
+app.use(router)
 
 httpServer.listen(3000)
