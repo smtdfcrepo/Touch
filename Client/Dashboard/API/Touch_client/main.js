@@ -89,7 +89,7 @@ class TouchAuthentication {
 	}
 	
 	static async token() {
-		let response = await fetch(`${server}/auth/info`, {
+		let response = await fetch(`${server}/info`, {
 			method: "post",
 			body:JSON.stringify({
 				
