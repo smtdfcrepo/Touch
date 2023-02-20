@@ -14,7 +14,7 @@ module.exports = async function(ctx, next) {
 			next()
 		}
 		try {
-			let payload = await jwt.verify(token)
+			let payload = await jwt.verify(token,proccess.env.ACCESS_TOKEN_SECRET)
 			ctx.request.user = payload
 			next()
 		} catch (err) {
