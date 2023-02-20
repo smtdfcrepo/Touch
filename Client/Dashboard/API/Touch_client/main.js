@@ -72,7 +72,7 @@ class TouchAuthentication {
 			method: "post",
 
 			headers: {
-				"authorization": "Bear 4 " + atob(Cookie.getCookie("at"))
+				"authorization": "Bear " + atob(Cookie.getCookie("at"))
 			}
 		})
 		let json = await response.json()
@@ -87,4 +87,20 @@ class TouchAuthentication {
 			}
 		}
 	}
+	
+	static async token() {
+		let response = await fetch(`${server}/auth/info`, {
+			method: "post",
+			body:JSON.stringify({
+				
+			})
+		})
+		let json = await response.json()
+		if (json.status == "success") {
+			return json.results
+		} else {
+			throw json
+		}
+	}
+	
 }
