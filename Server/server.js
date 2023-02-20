@@ -1,5 +1,6 @@
 const http = require('http');
 const Koa = require('koa')
+const bodyParser = require('koa-bodyparser');
 const router = require('./Routers/main.js')
 
 const app = new Koa()
@@ -12,12 +13,7 @@ app.use(async (ctx, next) => {
 	await next();
 });
 
-app.use(async ctx => {
-  ctx.body = 'Hello World';
-});
-
-app.use(router.routes())
-
-
+app.use(bodyParser());
+app.use(router(app))
 
 httpServer.listen(3000)
