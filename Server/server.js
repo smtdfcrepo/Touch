@@ -1,25 +1,14 @@
 const http = require('http');
-const express = require ("express")
-const bodyParser = require ("body-parser")
-const router = require("./Router/main.js")
+const Koa = require('koa')
 
 
-const app = express()
-const httpServer = http.createServer(app)
+const app = new Koa()
+const httpServer = http.createServer(app.callback())
 
-app.use(function(req,res,next){
-	res.header('Access-Control-Allow-Origin', '*')
-  res.header('Access-Control-Allow-Credentials', true)
-  res.header('Access-Control-Allow-Methods', 'POST, GET, PUT, DELETE, OPTIONS')
-  res.header('Access-Control-Allow-Headers', '*')
-  next()
-})
+app.use(async ctx => {
+  ctx.body = 'Hello World';
+});
 
-app.use(express.json())
-app.use(bodyParser.json())
-router(app)
 
-httpServer.listen(3000,function(){
-	console.log("Server is running .....")
-})
 
+httpServer.listen(3000)
